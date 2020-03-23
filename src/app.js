@@ -19,25 +19,12 @@ import "./styles/styles.scss";
 
 const store = configureStore();
 
-store.subscribe(() => {
-  const state = store.getState();
-  // console.log(state);
-  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-  console.log(visibleExpenses);
-});
-
-// store.dispatch(
-//   addExpense({ description: "Water bill", createdAt: "300", amount: "100" })
-// );
-// store.dispatch(
-//   addExpense({ description: "Gas bill", createdAt: "200", amount: "200" })
-// );
-// store.dispatch(
-//   addExpense({ description: "Rent bill", createdAt: "100", amount: "300" })
-// );
-// store.dispatch(setTextFilter("Water bill"));
-
-// console.log(store.getState());
+// store.subscribe(() => {
+//   const state = store.getState();
+//   // console.log(state);
+//   const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+//   console.log(visibleExpenses);
+// });
 
 const jsx = (
   <Provider store={store}>
