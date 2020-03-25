@@ -16,15 +16,9 @@ import getVisibleExpenses from "./selectors/expenses";
 import AppRouter from "./routers/AppRouter";
 import "normalize.css/normalize.css";
 import "./styles/styles.css";
+import "./firebase/firebase";
 
 const store = configureStore();
-
-// store.subscribe(() => {
-//   const state = store.getState();
-//   // console.log(state);
-//   const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-//   console.log(visibleExpenses);
-// });
 
 const jsx = (
   <Provider store={store}>
