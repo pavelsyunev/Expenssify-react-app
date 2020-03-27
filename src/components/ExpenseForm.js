@@ -13,7 +13,8 @@ export default class ExpenseForm extends React.Component {
       note: props.expense ? props.expense.note : "",
       amount: props.expense ? props.expense.amount.toString() : "",
       // createdAt: moment(),
-      createdAt: props.expense ? "" : new Date(),
+      // createdAt: props.expense ? 0 : new Date(),
+      createdAt: 0,
       error: ""
     };
   }
@@ -62,7 +63,8 @@ export default class ExpenseForm extends React.Component {
         description: this.state.description,
         amount: parseFloat(this.state.amount, 10),
         // createdAt: this.state.createdAt.valueOf(),
-        createdAt: this.state.createdAt.toDateString(),
+        // createdAt: this.state.createdAt.toDateString(),
+        createdAt: 0,
         note: this.state.note
       });
     }

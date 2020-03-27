@@ -1,9 +1,12 @@
 import firebase from "firebase/app";
 import "firebase/database";
+import "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIL,
+  apiKey: "AIzaSyDz42Icj3CXiwb2jsmdDWbsf2nTSAH4kkQ",
+  // apiKey: process.env.FIREBASE_API_KEY,
+  // authDomain: process.env.FIREBASE_AUTH_DOMAIL,
+  authDomain: "expensifyapp-be6d5.firebaseapp.com",
   databaseURL: "https://expensifyapp-be6d5.firebaseio.com",
   projectId: process.env.FIREBASE_PROJECT_ID,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
@@ -14,8 +17,17 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export { firebase, db as default };
+export { firebase, googleAuthProvider, db as default };
+
+// firebase.auth().onAuthStateChanged(user => {
+//   if (user) {
+//     console.log("Log In");
+//   } else {
+//     console.log("Log Out");
+//   }
+// });
 
 // EXAMPLES
 
@@ -65,6 +77,7 @@ export { firebase, db as default };
 //         ...childSnapshot.val()
 //       });
 //     });
+
 //     console.log(expenses);
 //   },
 //   e => {

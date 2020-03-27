@@ -23,7 +23,8 @@ export const addExpense = expense => ({
 });
 
 export const startAddExpense = (expenseDate = {}) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       description = "",
       note = "",
@@ -33,7 +34,7 @@ export const startAddExpense = (expenseDate = {}) => {
 
     const expense = { description, note, amount, createdAt };
 
-    db.ref("expenses")
+    db.ref(`users/${uid}/expenses`)
       .push(expense)
       .then(ref => {
         dispatch(
@@ -51,8 +52,66 @@ export const removeExpense = ({ id }) => ({
   expense: { id }
 });
 
+export const startRemoveExpenses = id => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return db
+      .ref(`users/${uid}/expenses`)
+      .child(id)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
 export const editExpense = (id, updates) => ({
   type: "EDIT_EXPENSE",
   id,
   updates
 });
+
+export const startEditExpense = (id, updates) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return db
+      .ref(`users/${uid}/expenses/${id}`)
+      .update(updates)
+      .then(() => {
+        dispatch(editExpense(id, updates));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};
+
+export const setExpenses = expenses => ({
+  type: "SET_EXPENSES",
+  expenses
+});
+
+export const startSetExpenses = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return db
+      .ref(`users/${uid}/expenses`)
+      .once("value")
+      .then(snapshot => {
+        const expenses = [];
+        snapshot.forEach(childSnapshot => {
+          expenses.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val()
+          });
+        });
+        dispatch(setExpenses(expenses));
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+};

@@ -8,7 +8,8 @@ const ExpenseListItem = props => (
       <h3>{props.description}</h3>
     </Link>
     <p>{numeral(props.amount).format("0,0[.]00 $")}</p>
-    <p>{props.createdAt.toString()}</p>
+    {/* <p>{props.createdAt.toString()}</p> */}
+    <p>0</p>
   </div>
 );
 
